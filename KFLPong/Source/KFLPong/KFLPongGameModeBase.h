@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "MyPongProjectGameModeBase.generated.h"
+#include "KFLPongGameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class MYPONGPROJECT_API AMyPongProjectGameModeBase : public AGameModeBase
+class KFLPONG_API AKFLPongGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	

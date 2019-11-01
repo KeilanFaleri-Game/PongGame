@@ -3,12 +3,12 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class MyPongProjectTarget : TargetRules
+public class KFLPongTarget : TargetRules
 {
-	public MyPongProjectTarget(TargetInfo Target) : base(Target)
+	public KFLPongTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 
-		ExtraModuleNames.AddRange( new string[] { "MyPongProject" } );
+		ExtraModuleNames.AddRange( new string[] { "KFLPong" } );
 	}
 }
