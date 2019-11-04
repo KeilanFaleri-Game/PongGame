@@ -15,6 +15,15 @@ public:
 	// Sets default values for this actor's properties
 	ABackground();
 
+        UPROPERTY(EditAnywhere, Category = "Visual")
+        class UPaperSpriteComponent* PlayerSpriteComponent;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera Spring", meta = (AllowPrivateAccess = "true"))
+        class USpringArmComponent* SpringArmComponent;
+
+    UPROPERTY(EditAnywhere, Category = "Player Camera")
+        class UCameraComponent* FollowCameraComponent;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

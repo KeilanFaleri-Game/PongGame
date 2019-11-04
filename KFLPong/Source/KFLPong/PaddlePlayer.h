@@ -15,11 +15,13 @@ public:
 	// Sets default values for this pawn's properties
 	APaddlePlayer();
 
-
     class UBoxComponent* bc;
 
     UPROPERTY(EditAnywhere, Category = "Visual")
         class UPaperSpriteComponent* PlayerSpriteComponent;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera Spring", meta = (AllowPrivateAccess = "true"))
+        class USpringArmComponent* SpringArmComponent;
 
     UPROPERTY(EditAnywhere, Category = "Player Camera")
         class UCameraComponent* FollowCameraComponent;

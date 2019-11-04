@@ -3,6 +3,7 @@
 
 #include "PaddlePlayer.h"
 #include "PaperSpriteComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/BoxComponent.h"
 
@@ -16,13 +17,21 @@ APaddlePlayer::APaddlePlayer()
     SetRootComponent(bc);
 
     PlayerSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
-    PlayerSpriteComponent->SetEnableGravity(false);
     PlayerSpriteComponent->SetupAttachment(RootComponent);
+
+    SpringArmComponent =
+        CreateDefaultSubobject<USpringArmComponent>("CameraBoom");     
+    SpringArmComponent->SetupAttachment(RootComponent);
+    SpringArmComponent->bDoCollisionTest = false;
+    SpringArmComponent->bInheritPitch = false;
+    SpringArmComponent->bInheritYaw = false;
+    SpringArmComponent->bInheritRoll = false;
+    SpringArmComponent->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
 
     FollowCameraComponent = CreateDefaultSubobject<UCameraComponent>("Player Follow Camera");
     FollowCameraComponent->SetProjectionMode(ECameraProjectionMode::Orthographic);
-    FollowCameraComponent->SetOrthoWidth(1920.0f);
-    FollowCameraComponent->SetupAttachment(RootComponent);
+    FollowCameraComponent->SetOrthoWidth(2500.0f);
+    FollowCameraComponent->SetupAttachment(SpringArmComponent);
 
     MovementUp = 0;
 }
@@ -39,6 +48,12 @@ void APaddlePlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    if (MovementUp != 0)
+    {
+        FVector NewLocation = GetActorLocation() + (GetActorUpVector() * MovementUp);
+        SetActorLocation(NewLocation);
+        
+    }
 }
 
 // Called to bind functionality to input
