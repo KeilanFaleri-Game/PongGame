@@ -13,10 +13,12 @@ ATopBorder::ATopBorder()
     PrimaryActorTick.bCanEverTick = true;
 
     ActorSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Actor Visual");
-    RootComponent = ActorSpriteComponent;
-    BoxComponent = CreateDefaultSubobject<UBoxComponent>("Box Component");
+    ActorSpriteComponent->SetupAttachment(RootComponent);
 
-    BoxComponent->SetupAttachment(ActorSpriteComponent);
+    BoxComponent = CreateDefaultSubobject<UBoxComponent>("Box Component");
+    BoxComponent->SetCollisionProfileName("BlockAll");
+    BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    BoxComponent->SetupAttachment(RootComponent);
 }
 
 UPrimitiveComponent* ATopBorder::GetPhysicsComponent()

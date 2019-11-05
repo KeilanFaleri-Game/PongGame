@@ -14,9 +14,12 @@ APaddlePlayer::APaddlePlayer()
 	PrimaryActorTick.bCanEverTick = true;
 
     bc = CreateDefaultSubobject<UBoxComponent>("bc");
+    bc->SetCollisionProfileName("BlockAll");
+    bc->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     SetRootComponent(bc);
 
     PlayerSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
+
     PlayerSpriteComponent->SetupAttachment(RootComponent);
 
     SpringArmComponent =
