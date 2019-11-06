@@ -2,6 +2,7 @@
 
 
 #include "EnemyPaddle.h"
+#include "Ball.h"
 #include "PaperSpriteComponent.h"
 #include "Components/BoxComponent.h"
 
@@ -15,10 +16,10 @@ AEnemyPaddle::AEnemyPaddle()
     RootComponent = BoxComponent;
     BoxComponent->SetCollisionProfileName("BlockAll");
     BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    BoxComponent->GetBodyInstance()->bLockXTranslation = true;
 
     AISpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
     AISpriteComponent->SetupAttachment(RootComponent);
-
 }
 
 // Called when the game starts or when spawned
@@ -33,5 +34,12 @@ void AEnemyPaddle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    if (Target != nullptr)
+    {
+        //DECLARE a variable called targetLocation of type FVector and assign it to the return value of FMath::VInterpConstantTo(..) passing in --> GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f
+        FVector targetLocation = FMath::VInterpConstantTo(GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f);
+        //CALL  SetActorLocation(..) passing in targetLocation
+        SetActorLocation(targetLocation);
+    }
 }
 

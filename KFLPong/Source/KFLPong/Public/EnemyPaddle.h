@@ -29,4 +29,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+    /* First of two patrol points to patrol between */
+    UPROPERTY(EditInstanceOnly,
+        Category = "AI",
+        meta = (EditCondition = "Target"))
+        AActor* Target;
+
 };
