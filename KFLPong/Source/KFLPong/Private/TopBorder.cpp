@@ -16,6 +16,7 @@ ATopBorder::ATopBorder()
     RootComponent = BoxComponent;
     BoxComponent->SetCollisionProfileName("BlockAll");
     BoxComponent->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+    
 
     ActorSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Actor Visual");
     ActorSpriteComponent->SetupAttachment(RootComponent);

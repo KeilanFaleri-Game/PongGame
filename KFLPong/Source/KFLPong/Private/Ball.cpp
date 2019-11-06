@@ -17,8 +17,9 @@ ABall::ABall()
     SphereCollisionComponent->SetSphereRadius(24.0f);
     SphereCollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     SphereCollisionComponent->SetCollisionProfileName("BlockAll");
-    SphereCollisionComponent->SetEnableGravity(false);
     SphereCollisionComponent->SetGenerateOverlapEvents(true);
+    SphereCollisionComponent->GetBodyInstance()->bLockRotation = true;
+    SphereCollisionComponent->GetBodyInstance()->bLockYTranslation = true;
 
     ballSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
     ballSpriteComponent->SetupAttachment(RootComponent);
@@ -26,6 +27,7 @@ ABall::ABall()
     BallProjectile = CreateDefaultSubobject<UProjectileMovementComponent>("PhysicsComponent");
     BallProjectile->bShouldBounce = true;
     BallProjectile->InitialSpeed = 50.0f;
+    BallProjectile->Friction = 0.0f;
     BallProjectile->MaxSpeed = 300.0f;
     BallProjectile->Bounciness = 1.0f;
 
