@@ -15,7 +15,8 @@ public:
 	// Sets default values for this pawn's properties
 	APaddlePlayer();
 
-    class UBoxComponent* bc;
+    UPROPERTY(EditAnywhere, Category = "Collision Box")
+        class UBoxComponent* BoxComponent;
 
     UPROPERTY(EditAnywhere, Category = "Visual")
         class UPaperSpriteComponent* PlayerSpriteComponent;

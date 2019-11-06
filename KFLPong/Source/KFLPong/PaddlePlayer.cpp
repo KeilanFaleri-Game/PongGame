@@ -13,13 +13,12 @@ APaddlePlayer::APaddlePlayer()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-    bc = CreateDefaultSubobject<UBoxComponent>("bc");
-    bc->SetCollisionProfileName("BlockAll");
-    bc->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-    SetRootComponent(bc);
+    BoxComponent = CreateDefaultSubobject<UBoxComponent>("bc");
+    RootComponent = BoxComponent;
+    BoxComponent->SetCollisionProfileName("BlockAll");
+    BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
     PlayerSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
-
     PlayerSpriteComponent->SetupAttachment(RootComponent);
 
     SpringArmComponent =
@@ -53,9 +52,21 @@ void APaddlePlayer::Tick(float DeltaTime)
 
     if (MovementUp != 0)
     {
-        FVector NewLocation = GetActorLocation() + (GetActorUpVector() * MovementUp);
-        SetActorLocation(NewLocation);
-        
+        if (GetActorLocation().Z >= 265.0f)
+        {
+            float NewLocation = GetActorLocation().Z - 1.0f;
+            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
+        }
+        else if (GetActorLocation().Z <= -265.0f)
+        {
+            float NewLocation = GetActorLocation().Z + 1.0f;
+            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
+        }
+        else
+        {
+            FVector NewLocation = GetActorLocation() + (GetActorUpVector() * MovementUp);
+            SetActorLocation(NewLocation);
+        }
     }
 }
 

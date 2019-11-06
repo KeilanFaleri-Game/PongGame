@@ -3,8 +3,8 @@
 
 #include "EnemyGoal.h"
 #include "Components/BoxComponent.h"
-#include "Components/PrimitiveComponent.h"
 #include "PaperSpriteComponent.h"
+#include "Components/PrimitiveComponent.h"
 
 // Sets default values
 AEnemyGoal::AEnemyGoal()
@@ -12,11 +12,13 @@ AEnemyGoal::AEnemyGoal()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-    ActorSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Actor Visual");
-    RootComponent = ActorSpriteComponent;
     BoxComponent = CreateDefaultSubobject<UBoxComponent>("Box Component");
+    RootComponent = BoxComponent;
+    BoxComponent->SetCollisionProfileName("BlockAll");
+    BoxComponent->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 
-    BoxComponent->SetupAttachment(ActorSpriteComponent);
+    ActorSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Actor Visual");
+    ActorSpriteComponent->SetupAttachment(RootComponent);
 
 }
 

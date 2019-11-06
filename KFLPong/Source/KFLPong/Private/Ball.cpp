@@ -9,18 +9,25 @@
 // Sets default values
 ABall::ABall()
 {
+    PrimaryActorTick.bCanEverTick = true;
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+
     SphereCollisionComponent = CreateDefaultSubobject<USphereComponent>("SphereCollisionComponent");
-    SphereCollisionComponent->SetupAttachment(RootComponent);
+    RootComponent = SphereCollisionComponent;
     SphereCollisionComponent->SetSphereRadius(24.0f);
     SphereCollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     SphereCollisionComponent->SetCollisionProfileName("BlockAll");
+    SphereCollisionComponent->SetEnableGravity(false);
     SphereCollisionComponent->SetGenerateOverlapEvents(true);
-    SphereCollisionComponent->SetSimulatePhysics(true);
-    SphereCollisionComponent->SetConstraintMode(EDOFMode::SixDOF);
 
-	PrimaryActorTick.bCanEverTick = true;
     ballSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
+    ballSpriteComponent->SetupAttachment(RootComponent);
+
+    BallProjectile = CreateDefaultSubobject<UProjectileMovementComponent>("PhysicsComponent");
+    BallProjectile->bShouldBounce = true;
+    BallProjectile->InitialSpeed = 50.0f;
+    BallProjectile->MaxSpeed = 300.0f;
+    BallProjectile->Bounciness = 1.0f;
 
 }
 

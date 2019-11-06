@@ -1,35 +1,35 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PlayerGoal.h"
-#include "Components/BoxComponent.h"
+#include "EnemyPaddle.h"
 #include "PaperSpriteComponent.h"
-#include "Components/PrimitiveComponent.h"
+#include "Components/BoxComponent.h"
 
 // Sets default values
-APlayerGoal::APlayerGoal()
+AEnemyPaddle::AEnemyPaddle()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-    BoxComponent = CreateDefaultSubobject<UBoxComponent>("Box Component");
+    BoxComponent = CreateDefaultSubobject<UBoxComponent>("bc");
     RootComponent = BoxComponent;
     BoxComponent->SetCollisionProfileName("BlockAll");
-    BoxComponent->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+    BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
-    ActorSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Actor Visual");
-    ActorSpriteComponent->SetupAttachment(RootComponent);
+    AISpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
+    AISpriteComponent->SetupAttachment(RootComponent);
+
 }
 
 // Called when the game starts or when spawned
-void APlayerGoal::BeginPlay()
+void AEnemyPaddle::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void APlayerGoal::Tick(float DeltaTime)
+void AEnemyPaddle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

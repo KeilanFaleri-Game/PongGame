@@ -4,16 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TopBorder.generated.h"
+#include "EnemyPaddle.generated.h"
 
 UCLASS()
-class KFLPONG_API ATopBorder : public AActor
+class KFLPONG_API AEnemyPaddle : public AActor
 {
 	GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, Category = "Collision Box")
+        class UBoxComponent* BoxComponent;
+
+    UPROPERTY(EditAnywhere, Category = "Visual")
+        class UPaperSpriteComponent* AISpriteComponent;
 	
 public:	
 	// Sets default values for this actor's properties
-	ATopBorder();
+	AEnemyPaddle();
 
 protected:
 	// Called when the game starts or when spawned
@@ -22,11 +28,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-    UPROPERTY(EditAnywhere, Category = "Collision Box")
-        class UBoxComponent* BoxComponent;
-
-    UPROPERTY(EditAnywhere, Category = "Visual")
-        class UPaperSpriteComponent* ActorSpriteComponent;
 
 };

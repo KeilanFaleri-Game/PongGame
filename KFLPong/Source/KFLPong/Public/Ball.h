@@ -21,6 +21,9 @@ public:
     UPROPERTY(EditAnywhere, Category = "Visual")
         class UPaperSpriteComponent* ballSpriteComponent;
 
+    UPROPERTY(EditAnywhere, Category = "PhysicsComponent")
+        class UProjectileMovementComponent* BallProjectile;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
