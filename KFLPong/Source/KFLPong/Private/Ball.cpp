@@ -29,11 +29,11 @@ ABall::ABall()
     BallProjectile = CreateDefaultSubobject<UProjectileMovementComponent>("PhysicsComponent");
     BallProjectile->bShouldBounce = true;
     BallProjectile->ProjectileGravityScale = 0.0f;
-    BallProjectile->InitialSpeed = 2000.0f;
+    BallProjectile->InitialSpeed = 500.0f;
     BallProjectile->Velocity = FVector (1.0f, 0.0f, 1.0f);
     //BallProjectile->bRotationFollowsVelocity = true;
     BallProjectile->Friction = 0.0f;
-    BallProjectile->MaxSpeed = 1000.0f;
+    BallProjectile->MaxSpeed = 2000.0f;
     BallProjectile->Bounciness = 1.0f;
 
 }
