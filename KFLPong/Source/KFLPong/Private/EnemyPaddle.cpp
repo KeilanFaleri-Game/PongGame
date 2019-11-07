@@ -36,10 +36,23 @@ void AEnemyPaddle::Tick(float DeltaTime)
 
     if (Target != nullptr)
     {
-        //DECLARE a variable called targetLocation of type FVector and assign it to the return value of FMath::VInterpConstantTo(..) passing in --> GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f
-        FVector targetLocation = FMath::VInterpConstantTo(GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f);
-        //CALL  SetActorLocation(..) passing in targetLocation
-        SetActorLocation(targetLocation);
+        if (GetActorLocation().Z >= 265.0f)
+        {
+            float NewLocation = GetActorLocation().Z - 1.0f;
+            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
+        }
+        else if (GetActorLocation().Z <= -265.0f)
+        {
+            float NewLocation = GetActorLocation().Z + 1.0f;
+            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
+        }
+        else
+        {
+            //DECLARE a variable called targetLocation of type FVector and assign it to the return value of FMath::VInterpConstantTo(..) passing in --> GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f
+            FVector targetLocation = FMath::VInterpConstantTo(GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f);
+            //CALL  SetActorLocation(..) passing in targetLocation
+            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, targetLocation.Z));
+        }
     }
 }
 

@@ -29,12 +29,12 @@ ABall::ABall()
     BallProjectile = CreateDefaultSubobject<UProjectileMovementComponent>("PhysicsComponent");
     BallProjectile->bShouldBounce = true;
     BallProjectile->ProjectileGravityScale = 0.0f;
-    BallProjectile->InitialSpeed = 100.0f;
+    BallProjectile->InitialSpeed = 2000.0f;
     BallProjectile->Velocity = FVector (1.0f, 0.0f, 1.0f);
     //BallProjectile->bRotationFollowsVelocity = true;
     BallProjectile->Friction = 0.0f;
     BallProjectile->MaxSpeed = 1000.0f;
-    BallProjectile->Bounciness = 100.0f;
+    BallProjectile->Bounciness = 1.0f;
 
 }
 
@@ -49,5 +49,14 @@ void ABall::BeginPlay()
 void ABall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+    if (GetActorLocation().X > 700)
+    {
+        SetActorLocation(FVector(0.0f, 50.0f, 0.0f));
+    }
+    else if (GetActorLocation().X < -700)
+    {
+        SetActorLocation(FVector(0.0f, 50.0f, 0.0f));
+    }
 
 }

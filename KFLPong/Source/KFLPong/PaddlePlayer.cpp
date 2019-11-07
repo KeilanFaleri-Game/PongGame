@@ -17,8 +17,17 @@ APaddlePlayer::APaddlePlayer()
     RootComponent = BoxComponent;
     BoxComponent->SetCollisionProfileName("BlockAll");
     BoxComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+    BoxComponent->SetSimulatePhysics(false);
+    BoxComponent->SetEnableGravity(false);
+    BoxComponent->GetBodyInstance()->bLockZRotation = true;
+    BoxComponent->GetBodyInstance()->bLockYRotation = true;
+    BoxComponent->GetBodyInstance()->bLockXRotation = true;
+    BoxComponent->GetBodyInstance()->bLockYTranslation = true;
+    BoxComponent->GetBodyInstance()->bLockXTranslation = true;
 
     PlayerSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
+    PlayerSpriteComponent->SetCollisionProfileName("BlockAll");
+    PlayerSpriteComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     PlayerSpriteComponent->SetupAttachment(RootComponent);
 
     SpringArmComponent =
