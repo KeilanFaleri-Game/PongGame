@@ -20,6 +20,7 @@ ABall::ABall()
     SphereCollisionComponent->SetGenerateOverlapEvents(true);
     SphereCollisionComponent->GetBodyInstance()->bLockRotation = true;
     SphereCollisionComponent->GetBodyInstance()->bLockYTranslation = true;
+    SphereCollisionComponent->OnComponentHit.AddDynamic(this, &ABall::OnHit);
 
     ballSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Pawn Visual");
     ballSpriteComponent->GetBodyInstance()->bLockRotation = true;
@@ -50,13 +51,14 @@ void ABall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-    if (GetActorLocation().X > 700)
-    {
-        SetActorLocation(FVector(0.0f, 50.0f, 0.0f));
-    }
-    else if (GetActorLocation().X < -700)
-    {
-        SetActorLocation(FVector(0.0f, 50.0f, 0.0f));
-    }
+}
 
+UProjectileMovementComponent* ABall::GetBallMovement()
+{
+    return BallProjectile;
+}
+
+void ABall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, "POOP " + OtherComp->GetName());
 }

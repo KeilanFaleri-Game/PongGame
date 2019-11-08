@@ -4,6 +4,7 @@
 #include "EnemyPaddle.h"
 #include "Ball.h"
 #include "PaperSpriteComponent.h"
+#include "EngineUtils.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -34,25 +35,35 @@ void AEnemyPaddle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-    if (Target != nullptr)
+    for (TActorIterator<ABall> ActorItr(GetWorld()); ActorItr; ++ActorItr)
     {
-        if (GetActorLocation().Z >= 265.0f)
+        ABall* tempBall = Cast<ABall>(*ActorItr);
+
+        if (tempBall)
         {
-            float NewLocation = GetActorLocation().Z - 1.0f;
-            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
-        }
-        else if (GetActorLocation().Z <= -265.0f)
-        {
-            float NewLocation = GetActorLocation().Z + 1.0f;
-            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
+            if (GetActorLocation().Z >= 265.0f)
+            {
+                float NewLocation = GetActorLocation().Z - 1.0f;
+                SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
+            }
+            else if (GetActorLocation().Z <= -265.0f)
+            {
+                float NewLocation = GetActorLocation().Z + 1.0f;
+                SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, NewLocation));
+            }
+            else
+            {
+                //DECLARE a variable called targetLocation of type FVector and assign it to the return value of FMath::VInterpConstantTo(..) passing in --> GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f
+                FVector targetLocation = FMath::VInterpConstantTo(GetActorLocation(), tempBall->GetActorLocation(), DeltaTime, 600.0f);
+                //CALL  SetActorLocation(..) passing in targetLocation
+                SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, targetLocation.Z));
+            }
         }
         else
         {
-            //DECLARE a variable called targetLocation of type FVector and assign it to the return value of FMath::VInterpConstantTo(..) passing in --> GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f
-            FVector targetLocation = FMath::VInterpConstantTo(GetActorLocation(), Target->GetActorLocation(), DeltaTime, 600.0f);
-            //CALL  SetActorLocation(..) passing in targetLocation
-            SetActorLocation(FVector(GetActorLocation().X, GetActorLocation().Y, targetLocation.Z));
+            SetActorLocation(FVector(560.0f , 50.0f, 0.0f));
         }
     }
+
 }
 
