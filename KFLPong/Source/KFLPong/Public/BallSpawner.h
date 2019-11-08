@@ -26,6 +26,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+    void ResetSpawnCount();
+
 private:
     /* arrow component  */
   //This will be the spawn point

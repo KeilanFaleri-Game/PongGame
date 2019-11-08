@@ -19,6 +19,7 @@ APlayerGoal::APlayerGoal()
 
     ActorSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Actor Visual");
     ActorSpriteComponent->SetupAttachment(RootComponent);
+    ActorSpriteComponent->ComponentTags.Add("PlayerGoal");
 }
 
 // Called when the game starts or when spawned

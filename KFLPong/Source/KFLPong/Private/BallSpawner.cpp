@@ -113,5 +113,9 @@ void ABallSpawner::SpawnActor()
 
 }
 
+void ABallSpawner::ResetSpawnCount()
+{
+    SpawnCount--;
+}
 
 

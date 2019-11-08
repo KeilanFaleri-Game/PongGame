@@ -19,7 +19,7 @@ AEnemyGoal::AEnemyGoal()
 
     ActorSpriteComponent = CreateDefaultSubobject<UPaperSpriteComponent>("Actor Visual");
     ActorSpriteComponent->SetupAttachment(RootComponent);
-
+    ActorSpriteComponent->ComponentTags.Add("EnemyGoal");
 }
 
 // Called when the game starts or when spawned

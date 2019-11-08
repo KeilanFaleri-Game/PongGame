@@ -4,6 +4,8 @@
 #include "Ball.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "BallSpawner.h"
+#include "EngineUtils.h"
 #include "PaperSpriteComponent.h"
 
 // Sets default values
@@ -61,4 +63,34 @@ UProjectileMovementComponent* ABall::GetBallMovement()
 void ABall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
     GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, "POOP " + OtherComp->GetName());
+
+    if (OtherComp->ComponentHasTag("EnemyGoal"))
+    {
+        Destroy();
+
+        for (TActorIterator<ABallSpawner> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+        {
+            ABallSpawner* tempBall = Cast<ABallSpawner>(*ActorItr);
+
+            if (tempBall)
+            {
+                tempBall->ResetSpawnCount();
+            }
+        }
+    }
+    else if (OtherComp->ComponentHasTag("PlayerGoal"))
+    {
+        Destroy();
+
+        for (TActorIterator<ABallSpawner> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+        {
+            ABallSpawner* tempBall = Cast<ABallSpawner>(*ActorItr);
+
+            if (tempBall)
+            {
+                tempBall->ResetSpawnCount();
+            }
+        }
+    }
+    
 }
